@@ -4,13 +4,6 @@ const roomRouter = require("./room");
 const deviceRouter = require("./device");
 
 function route(app) {
-    // roomRouter.param("hid", (req, res, next, hid) => {
-    //     // Lưu tham số vào đối tượng yêu cầu
-    //     req.hid = hid;
-    //     // Tiếp tục đến middleware tiếp theo
-    //     next();
-    //   });
-
     // Create routes for auth
     app.use("/api/auth", authRouter);
     // Create routes for house user
