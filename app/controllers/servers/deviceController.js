@@ -1,5 +1,5 @@
 const Device = require("../models/Device");
-const { mutipleMongooseToObject, mongooseToObject } = require("../../util/mongoose");
+// const { mutipleMongooseToObject, mongooseToObject } = require("../../util/mongoose");
 
 class deviceController {
     // POST localhost:[port]/api/device/register

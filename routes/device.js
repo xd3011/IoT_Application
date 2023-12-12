@@ -9,6 +9,6 @@ router.put("/:did", deviceController.edit);
 
 router.delete("/:did", deviceController.delete);
 
-router.get("/:uid", middlewareController.verifyToken, deviceController.view);
+router.get("/:uid", deviceController.view);
 
 module.exports = router;
