@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const authController = require("../app/controllers/authcontroller");
-import firebaseController from "../app/controllers/firebasecontroller";
+const authController = require("../app/controllers/servers/authController");
 
 router.post("/register", authController.register);
 router.post("/login", authController.login);
-router.post("/refreshfbtktimestamp/:uid", firebaseController.refreshFBTokenTimeStamp)
 router.post("/refresh", function (req, res) {
     return res.status(200).json("Test");
 });
