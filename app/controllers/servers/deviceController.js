@@ -4,15 +4,14 @@ const { mutipleMongooseToObject, mongooseToObject } = require("../../util/mongoo
 class deviceController {
     // POST localhost:[port]/api/device/register
     async register(req, res, next) {
-        const room_id = req.cookies.room_id;
+        const uid = req.cookies.uid;
         const formData = req.body;
-        formData.room_id = room_id;
+        formData.uid = uid;
         console.log(formData);
         try {
             const room = new Device(formData);
             room.save();
             res.status(200).json("Register Success");
-            res.redirect(`/api/device/${formData.room_id}`);
         } catch (err) {
             console.error("Error saving room:", err);
             res.status(500).send("New creation failed");
@@ -29,7 +28,7 @@ class deviceController {
                 res.status(200).json(device);
             })
             .then(() => {
-                res.cookie("room_id", req.params.uid, {
+                res.cookie("uid", req.params.uid, {
                     httpOnly: true,
                     path: "/",
                     sameSite: "strict",
