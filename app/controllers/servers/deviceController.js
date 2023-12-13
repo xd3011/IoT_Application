@@ -4,9 +4,8 @@ const Device = require("../../models/Device");
 class deviceController {
     // POST localhost:[port]/api/device/register
     async register(req, res, next) {
-        const uid = req.cookies.uid;
         const formData = req.body;
-        formData.uid = uid;
+        formData.user_id = req.params.uid
         console.log(formData);
         try {
             const room = new Device(formData);

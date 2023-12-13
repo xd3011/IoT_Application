@@ -3,7 +3,7 @@ const router = express.Router();
 
 const deviceController = require("../app/controllers/servers/deviceController");
 
-router.post("/register", deviceController.register);
+router.post("/:uid/register", deviceController.register);
 
 router.put("/:did", deviceController.edit);
 

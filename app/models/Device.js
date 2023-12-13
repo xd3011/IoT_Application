@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const Device = new Schema(
     {
-        room_id: { type: String, require: true },
+        user_id: { type: String, require: true },
         mac_address: { type: String, required: true },
         device_name: { type: String, required: true },
         device_type: { type: String },
