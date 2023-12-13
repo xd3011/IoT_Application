@@ -1,7 +1,7 @@
 const express = require("express");
-const homeController = require("../app/controllers/homecontroller");
+const homeController = require("../app/controllers/servers/homecontroller");
 const router = express.Router();
-import middlewareController from "../app/middleware/middlewareController";
+const middlewareController = require("../app/middlewares/middlewareController");
 
 router.post("/:hid/members", middlewareController.verifyTokenAndOwnerAuth, homeController.addUser);
 

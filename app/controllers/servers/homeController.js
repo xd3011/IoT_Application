@@ -1,7 +1,7 @@
-const Home = require("../models/Home");
+const Home = require("../../models/Home");
 // const User = require("../models/User");
 // const jwt = require("jsonwebtoken");
-const { mutipleMongooseToObject, mongooseToObject } = require("../../util/mongoose");
+// const { mutipleMongooseToObject, mongooseToObject } = require("../../util/mongoose");
 
 class homeController {
     // POST localhost:[port]/api/home/user/register
@@ -30,7 +30,7 @@ class homeController {
                 if (!home.length) {
                     return res.status(401).send("You don't have a house, do you want more house?");
                 }
-                return res.status(200).json(mutipleMongooseToObject(home));
+                return res.status(200).json(home);
             })
             .catch(next);
     }

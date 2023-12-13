@@ -1,4 +1,4 @@
-const Device = require("../models/Device");
+const Device = require("../../models/Device");
 // const { mutipleMongooseToObject, mongooseToObject } = require("../../util/mongoose");
 
 class deviceController {

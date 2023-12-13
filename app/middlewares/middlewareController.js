@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-import Home from "../models/Home";
+const Home = require("../models/Home");
 
 const middlewareController = {
     verifyToken(req, res, next) {

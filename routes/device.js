@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const deviceController = require("../app/controllers/deviceController");
+const deviceController = require("../app/controllers/servers/deviceController");
 
 router.post("/register", deviceController.register);
 
