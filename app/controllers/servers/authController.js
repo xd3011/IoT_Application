@@ -88,6 +88,12 @@ const authController = {
                     sameSite: "strict",
                     secure: false,
                 });
+                res.cookie("uid", uid, {
+                    httpOnly: true,
+                    path: "/",
+                    sameSite: "strict",
+                    secure: false,
+                });
                 res.status(200).json({ accessToken, refreshToken, uid });
             }
         } catch (err) {
