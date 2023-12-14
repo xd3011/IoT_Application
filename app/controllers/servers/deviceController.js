@@ -17,12 +17,26 @@ class deviceController {
         }
     }
 
-    // POST localhost:[port]/api/device/:id
+    // POST localhost:[port]/api/:uid/device/:did
+    async viewDetail(req, res, next) {
+        console.log(req.params.uid, req.params.did);
+        Device.find({ user_id: req.params.uid, _id: req.params.did })
+            .then((device) => {
+                if (!device) {
+                    return res.status(401).send("Your user doesn't have a device");
+                }
+                console.log(device);
+                res.status(200).json(device);
+            })
+            .catch(next);
+    }
+
+    // POST localhost:[port]/api//:uid/device
     async view(req, res, next) {
         Device.find({ user_id: req.params.uid })
             .then((device) => {
                 if (!device) {
-                    return res.status(401).send("Your room doesn't have a device");
+                    return res.status(401).send("Your user doesn't have a device");
                 }
                 res.status(200).json(device);
             })
