@@ -19,7 +19,7 @@ class deviceController {
 
     // POST localhost:[port]/api/device/:id
     async view(req, res, next) {
-        Device.find({ room_id: req.params.uid })
+        Device.find({ user_id: req.params.uid })
             .then((device) => {
                 if (!device) {
                     return res.status(401).send("Your room doesn't have a device");
