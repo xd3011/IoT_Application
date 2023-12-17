@@ -31,7 +31,8 @@ const middlewareController = {
         middlewareController.verifyToken(req, res, () => {
             Home.findById(req.params.hid)
                 .then((home) => {
-                    if (home.owner == req.user.id || req.body.id == req.user.id) {
+                    if (home.owner == req.user.uid || req.params.uid == req.user.uid) {
+                        req.body.uid = req.params.uid;
                         next();
                     }
                     else {
@@ -48,7 +49,7 @@ const middlewareController = {
         middlewareController.verifyToken(req, res, () => {
             Home.findById(req.params.hid)
                 .then((home) => {
-                    if (home.owner == req.user.uid) {
+                    if (home.owner == req.user.uid == req.params.uid) {
                         next();
                     }
                     else {

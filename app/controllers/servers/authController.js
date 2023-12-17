@@ -94,7 +94,7 @@ const authController = {
                     sameSite: "strict",
                     secure: false,
                 });
-                res.status(200).json({ accessToken, refreshToken, uid });
+                res.status(200).json({ uid });
             }
         } catch (err) {
             res.status(500).json(err);
@@ -126,8 +126,14 @@ const authController = {
                 sameSite: "strict",
                 secure: false,
             });
+            res.cookie("accessToken", newAccessToken, {
+                httpOnly: true,
+                path: "/",
+                sameSite: "strict",
+                secure: false,
+            });
             reFreshTokens.push(newRefreshToken);
-            res.status(200).json({ accessToken: newAccessToken });
+            res.status(200).json("Refresh Tokens Successfylly");
         });
     },
 

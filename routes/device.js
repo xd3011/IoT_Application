@@ -147,6 +147,6 @@ router.delete("/:did", deviceController.delete);
 
 router.get("/:uid", deviceController.view);
 
-router.get("/:uid/device/:did", deviceController.viewDetail);
+router.get("/:uid/:did", deviceController.viewDetail);
 
 module.exports = router;

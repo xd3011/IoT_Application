@@ -9,8 +9,8 @@ class homeController {
         const home = new Home({
             address: req.body.address,
             home_name: req.body.home_name,
-            owner: req.body.uid,
-            user_id_list: req.body.uid,
+            owner: req.params.uid,
+            user_id_list: req.params.uid,
         });
         try {
             await home.save();
@@ -78,7 +78,6 @@ class homeController {
         Home.findOne({ _id: req.params.hid })
             .then((home) => {
                 home.user_id_list.push(req.body.uid);
-                console.log(home);
                 home.save();
                 return res.status(200).json({
                     "message": "Successfully added user from home"
@@ -93,7 +92,6 @@ class homeController {
         Home.findOne({ _id: req.params.hid })
             .then((home) => {
                 home.user_id_list.pop(req.body.uid);
-                console.log(home);
                 home.save();
                 return res.status(200).json({
                     "message": "Successfully removed user from home"
