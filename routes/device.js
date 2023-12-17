@@ -138,15 +138,16 @@ const express = require("express");
 const router = express.Router();
 
 const deviceController = require("../app/controllers/servers/deviceController");
+const middlewareController = require("../app/middlewares/middlewareController");
 
-router.post("/:uid/register", deviceController.register);
+router.post("/:uid/:hid/register", middlewareController.verifyTokenAndCheckIsUser, deviceController.register);
 
-router.put("/:did", deviceController.edit);
+router.put("/:uid/:hid/:did", middlewareController.verifyTokenAndCheckIsUser, deviceController.edit);
 
-router.delete("/:did", deviceController.delete);
+router.delete("/:uid/:hid/:did", middlewareController.verifyTokenAndCheckIsUser, deviceController.delete);
 
-router.get("/:uid", deviceController.view);
+router.get("/:uid/:hid", middlewareController.verifyTokenAndCheckIsUser, deviceController.view);
 
-router.get("/:uid/:did", deviceController.viewDetail);
+router.get("/:uid/:hid/:did", middlewareController.verifyTokenAndCheckIsUser, deviceController.viewDetail);
 
 module.exports = router;
