@@ -8,11 +8,11 @@ class deviceController {
         formData.user_id = req.params.uid
         console.log(formData);
         try {
-            const room = new Device(formData);
-            room.save();
+            const device = new Device(formData);
+            device.save();
             res.status(200).json("Register Success");
         } catch (err) {
-            console.error("Error saving room:", err);
+            console.error("Error saving device:", err);
             res.status(500).send("New creation failed");
         }
     }
