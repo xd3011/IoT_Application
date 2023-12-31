@@ -140,7 +140,7 @@ const router = express.Router();
 const deviceController = require("../app/controllers/servers/deviceController");
 const middlewareController = require("../app/middlewares/middlewareController");
 
-router.post("/:uid/:hid/register", middlewareController.verifyTokenAndCheckIsUser, deviceController.register);
+router.post("/:uid/:hid/register", middlewareController.verifyTokenAndCheckIsUser, deviceController.create);
 
 router.put("/:uid/:hid/:did", middlewareController.verifyTokenAndCheckIsUser, deviceController.edit);
 

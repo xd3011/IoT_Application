@@ -1,29 +1,47 @@
 const Device = require("../../models/Device");
 const Home = require("../../models/Home");
+import publisherDevice from "../devices/deviceController";
 class deviceController {
     // POST localhost:[port]/api/device/register
-    async register(req, res, next) {
+    async create(req, res, next) {
         try {
             Home.findById(req.params.hid)
                 .then((home) => {
-                    if (home.user_id_list == req.params.uid) {
+                    if (home.user_id_list.includes(req.params.uid)) {
                         return home;
                     } else {
                         throw new Error("You are not a member of the house");
                     }
                 })
                 .then((home) => {
-                    const device = new Device({
-                        device_owner: req.params.uid,
-                        home_id: req.params.hid,
-                        mac_address: req.body.mac_address,
-                        device_name: req.body.device_name,
-                        device_status: {
-                            type: req.body.device_type,
-                            code: req.body.device_code,
-                        },
-                        device_online: false,
-                    });
+                    let device;
+                    if (req.body.device_type == "led") {
+                        device = new Device({
+                            device_owner: req.params.uid,
+                            home_id: req.params.hid,
+                            mac_address: req.body.mac_address,
+                            device_name: req.body.device_name,
+                            device_status: {
+                                type: req.body.device_type,
+                                code: 21,
+                            },
+                            device_online: false,
+                        });
+                    }
+                    else if (req.body.device_type == "sensor") {
+                        device = new Device({
+                            device_owner: req.params.uid,
+                            home_id: req.params.hid,
+                            mac_address: req.body.mac_address,
+                            device_name: req.body.device_name,
+                            device_status: {
+                                type: req.body.device_type,
+                                code: 23,
+                            },
+                            device_online: false,
+                        });
+                    }
+                    publisherDevice.publisherCreateDevice(device, req.body.mac_address);
                     return device.save();
                 })
                 .then(() => {

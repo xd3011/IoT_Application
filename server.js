@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+import mqtt from "./config/mqtt";
+
 const bodyParser = require("body-parser"),
     swaggerJsdoc = require("swagger-jsdoc"),
     swaggerUi = require("swagger-ui-express");
@@ -24,6 +26,8 @@ app.use(
 
 // Connect to DB
 db.connect();
+// Connect to MQTT Broker
+mqtt.mqttconnect();
 // Route init
 route(app);
 

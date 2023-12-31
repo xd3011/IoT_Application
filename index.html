@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <title>IoT Gateway Setting</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    button[type="submit"] {
+      background-color: green;
+    }
+
+    button[type="submit"]:hover {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <form class="container" action="#">
+    <h1>IoT Gateway Setting</h1>
+    <table>
+      <tr>
+        <td>Device Gateway Code</td>
+        <td>
+          <input type="text" name="device_gateway_code" value="IOT_GATEWAY_ESP32">
+        </td>
+      </tr>
+      <tr>
+        <td>Device Mac Address</td>
+        <td>
+          <input type="text" name="device_gateway_code" value="mac address">
+        </td>
+      </tr>
+      <tr>
+        <td>IoT Server Host</td>
+        <td>
+          <input type="text" name="server_host" value="localhost">
+        </td>
+      </tr>
+      <tr>
+        <td>IoT Server Port</td>
+        <td>
+          <input type="text" name="server_port" value="8000">
+        </td>
+      </tr>
+      <tr>
+        <td>IoT Server Username</td>
+        <td>
+          <input type="text" name="server_name" value="Server Name">
+        </td>
+      </tr>
+      <tr>
+        <td>IoT Server Password</td>
+        <td>
+          <input type="text" name="server_password" value="Server Password">
+        </td>
+      </tr>
+      <tr>
+        <td>Project ID</td>
+        <td>
+          <input type="text" name="project_id" value="Smart_home">
+        </td>
+      </tr>
+      <tr>
+        <td>Network Mode</td>
+        <td>
+          <select name="network_mode" id="network_mode">
+            <option value="wifi">Wifi</option>
+            <option value="bluetooth">Bluetooth</option>
+            <option value="zigbee">Zigbee</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Wifi SSID</td>
+        <td>
+          <input type="text" name="ssid" value="SSID">
+        </td>
+      </tr>
+      <tr>
+        <td>Wifi Password</td>
+        <td>
+          <input type="text" name="password" value="Password">
+        </td>
+      </tr>
+      <tr>
+        <td>Publish Interval (s)</td>
+        <td>
+          <input type="text" name="interval" value="10000">
+        </td>
+      </tr>
+    </table>
+    <br>
+    <h2>Configure Input Ports</h2>
+    <table class="center">
+      <tr>
+        <th>Input Port</th>
+        <th>Mode</th>
+        <th>Device Code</th>
+        <th>Device Type</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <select name="input_mode1" id="input_mode1">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="input_device_code1" value="">
+        </td>
+        <td>
+          <select name="input_device_type1" id="input_device_type1">
+            <option value="button">Button</option>
+            <option value="dht22">Sensor</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <select name="input_mode2" id="input_mode2">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="input_device_code1" value="">
+        </td>
+        <td>
+          <select name="input_device_type2" id="input_device_type2">
+            <option value="button">Button</option>
+            <option value="dht22">Sensor</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <select name="input_mode3" id="input_mode1">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="input_device_code3" value="">
+        </td>
+        <td>
+          <select name="input_device_type3" id="input_device_type3">
+            <option value="button">Button</option>
+            <option value="dht22">Sensor</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <select name="input_mode4" id="input_mode4">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="input_device_code4" value="">
+        </td>
+        <td>
+          <select name="input_device_type4" id="input_device_type4">
+            <option value="button">Button</option>
+            <option value="dht22">Sensor</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <h2>Configure Output Ports</h2>
+    <table class="center">
+      <tr>
+        <th>Output Port</th>
+        <th>Mode</th>
+        <th>Device Code</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>
+          <select name="output_mode1" id="output_mode1">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="output_device_code1" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <select name="output_mode2" id="output_mode2">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="output_device_code2" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <select name="output_mode3" id="output_mode3">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="output_device_code3" value="">
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <select name="output_mode4" id="output_mode4">
+            <option value="enable">Enable</option>
+            <option value="disable">Disable</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="output_device_code4" value="">
+        </td>
+      </tr>
+    </table>
+    <div class="button">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</body>
+
+</html>
