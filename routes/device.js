@@ -150,4 +150,6 @@ router.get("/:uid/:hid", middlewareController.verifyTokenAndCheckIsUser, deviceC
 
 router.get("/:uid/:hid/:did", middlewareController.verifyTokenAndCheckIsUser, deviceController.viewDetail);
 
+router.post("/:uid/:hid/:did/control", middlewareController.verifyTokenAndCheckIsUser, deviceController.control);
+
 module.exports = router;

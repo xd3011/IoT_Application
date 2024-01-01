@@ -14,33 +14,25 @@ class deviceController {
                     }
                 })
                 .then((home) => {
-                    let device;
+                    let device_code;
                     if (req.body.device_type == "led") {
-                        device = new Device({
-                            device_owner: req.params.uid,
-                            home_id: req.params.hid,
-                            mac_address: req.body.mac_address,
-                            device_name: req.body.device_name,
-                            device_status: {
-                                type: req.body.device_type,
-                                code: 21,
-                            },
-                            device_online: false,
-                        });
+                        device_code = 21;
                     }
                     else if (req.body.device_type == "sensor") {
-                        device = new Device({
-                            device_owner: req.params.uid,
-                            home_id: req.params.hid,
-                            mac_address: req.body.mac_address,
-                            device_name: req.body.device_name,
-                            device_status: {
-                                type: req.body.device_type,
-                                code: 23,
-                            },
-                            device_online: false,
-                        });
+                        device_code = 23;
                     }
+                    const device = new Device({
+                        device_owner: req.params.uid,
+                        home_id: req.params.hid,
+                        mac_address: req.body.mac_address,
+                        device_name: req.body.device_name,
+                        device_status: {
+                            type: req.body.device_type,
+                            code: device_code,
+                        },
+                        device_online: false,
+                    });
+
                     publisherDevice.publisherCreateDevice(device, req.body.mac_address);
                     return device.save();
                 })
@@ -146,6 +138,34 @@ class deviceController {
             .catch(error => {
                 return res.status(500).json(error);
             })
+    }
+
+    async control(req, res) {
+        try {
+            const { uid, did, hid } = req.params;
+            const device = await Device.findById(did);
+            if (device && device.home_id === hid) {
+                const home = await Home.findById(hid).select('user_id_list');
+                if (home && home.user_id_list.includes(uid)) {
+                    if (req.body.value == "ON") {
+                        device.device_status.value = "ON";
+                    }
+                    else if (req.body.value == "OFF") {
+                        device.device_status.value = "OFF";
+                    }
+                    device.save();
+                    publisherDevice.publisherControlDevice(device, device.mac_address);
+                    res.status(200).json("Control Successfully!");
+                } else {
+                    res.status(403).json("Unauthorized access"); // Handle unauthorized access
+                }
+            } else {
+                res.status(404).json("Device or home not found"); // Handle missing device or home
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json("Internal Server Error");
+        }
     }
 }
 

@@ -15,7 +15,7 @@ async function mqttconnect() {
             client.subscribe(['send/led', 'send/dht22', 'send/create']);
         })
         client.on('message', async (topic, data) => {
-            console.log("MQTT Received Topic:", topic.toString());
+            // console.log("MQTT Received Topic:", topic.toString());
             switch (topic) {
                 case 'send/create':
                     const create = data.toString();
@@ -27,7 +27,7 @@ async function mqttconnect() {
                     break;
                 case 'send/dht22':
                     const dht22 = data.toString();
-                    console.log('dht22:', dht22);
+                    // console.log('dht22:', dht22);
                     break;
                 default:
                     console.log('Unknown topic:', topic);
