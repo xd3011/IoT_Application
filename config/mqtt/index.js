@@ -1,5 +1,6 @@
 
 const mqtt = require('mqtt');
+const Device = require('../../app/models/Device');
 
 var options = {
     host: 'broker.hivemq.com',
@@ -11,23 +12,42 @@ async function mqttconnect() {
     try {
         client.on('connect', async () => {
             console.log('MQTT Connected');
-
             client.subscribe(['send/led', 'send/dht22', 'send/create']);
         })
         client.on('message', async (topic, data) => {
-            // console.log("MQTT Received Topic:", topic.toString());
             switch (topic) {
                 case 'send/create':
                     const create = data.toString();
-                    console.log('create:', create);
+                    const createData = JSON.parse(create);
+                    Device.findById(createData._id)
+                        .then((device) => {
+                            if (device) {
+                                device.device_online = true;
+                                device.save();
+                            }
+                        })
                     break;
                 case 'send/led':
                     const led = data.toString();
-                    console.log('led:', led);
+                    const ledData = JSON.parse(led);
+                    Device.findOne({ mac_address: ledData.mac_address, "device_status.type": ledData.device_status.type })
+                        .then((device) => {
+                            if (device) {
+                                device.device_status.value = ledData.device_status.value;
+                                device.save();
+                            }
+                        })
                     break;
                 case 'send/dht22':
                     const dht22 = data.toString();
-                    // console.log('dht22:', dht22);
+                    const dht22Data = JSON.parse(dht22);
+                    Device.findOne({ mac_address: dht22Data.mac_address, "device_status.type": dht22Data.device_status.type })
+                        .then((device) => {
+                            if (device) {
+                                device.device_status.value = dht22Data.device_status.value;
+                                device.save();
+                            }
+                        })
                     break;
                 default:
                     console.log('Unknown topic:', topic);
@@ -40,6 +60,16 @@ async function mqttconnect() {
 }
 
 let createDeviceMqtt = (data, topic) => {
+    client.publish(topic, JSON.stringify(data))
+        .then(() => {
+            console.log("Publisher Successfully!");
+        })
+        .catch((err) => {
+            throw err
+        })
+}
+
+let controlDeviceMqtt = (data, topic) => {
     client.publish(topic, JSON.stringify(data))
         .then(() => {
             console.log("Publisher Successfully!");
@@ -64,4 +94,4 @@ let pulishDeleteDevice = (data) => {
         })
 }
 
-module.exports = { mqttconnect, pulishDeleteDevice, createDeviceMqtt };
+module.exports = { mqttconnect, pulishDeleteDevice, createDeviceMqtt, controlDeviceMqtt };

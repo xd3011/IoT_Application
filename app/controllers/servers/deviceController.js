@@ -147,15 +147,20 @@ class deviceController {
             if (device && device.home_id === hid) {
                 const home = await Home.findById(hid).select('user_id_list');
                 if (home && home.user_id_list.includes(uid)) {
-                    if (req.body.value == "ON") {
-                        device.device_status.value = "ON";
+                    if (device.device_online == true) {
+                        if (req.body.value == "ON") {
+                            device.device_status.value = "ON";
+                        }
+                        else if (req.body.value == "OFF") {
+                            device.device_status.value = "OFF";
+                        }
+                        device.save();
+                        publisherDevice.publisherControlDevice(device, device.mac_address);
+                        res.status(200).json("Control Successfully!");
                     }
-                    else if (req.body.value == "OFF") {
-                        device.device_status.value = "OFF";
+                    else {
+                        res.status(404).json("Device Offline");
                     }
-                    device.save();
-                    publisherDevice.publisherControlDevice(device, device.mac_address);
-                    res.status(200).json("Control Successfully!");
                 } else {
                     res.status(403).json("Unauthorized access"); // Handle unauthorized access
                 }

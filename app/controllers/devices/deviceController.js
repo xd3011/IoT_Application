@@ -23,7 +23,7 @@ let publisherControlDevice = (device, topic) => {
             home_id: device.home_id,
             device_status: device.device_status,
         };
-        mqtt.createDeviceMqtt(data, topic);
+        mqtt.controlDeviceMqtt(data, topic);
     } catch (error) {
         return error;
     }
