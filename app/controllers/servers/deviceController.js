@@ -114,6 +114,7 @@ class deviceController {
             Device.findById(req.params.did)
                 .then((device) => {
                     if (device.device_owner == req.params.uid) {
+                        publisherDevice.publisherDeleteDevice(device, device.mac_address);
                         return Device.findByIdAndDelete(req.params.did);
                     } else {
                         return checkHomeOwnerPermission(req.params.uid, req.params.hid);

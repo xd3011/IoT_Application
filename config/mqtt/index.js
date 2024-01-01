@@ -84,8 +84,8 @@ let controlDeviceMqtt = (data, topic) => {
 //     firebaseController.sendPushNotification();
 // }
 
-let pulishDeleteDevice = (data) => {
-    client.publish("unconnect", JSON.stringify(data))
+let deleteDeviceMqtt = (data, topic) => {
+    client.publish(topic, JSON.stringify(data))
         .then(() => {
             console.log("Successfully pulish")
         })
@@ -94,4 +94,4 @@ let pulishDeleteDevice = (data) => {
         })
 }
 
-module.exports = { mqttconnect, pulishDeleteDevice, createDeviceMqtt, controlDeviceMqtt };
+module.exports = { mqttconnect, deleteDeviceMqtt, createDeviceMqtt, controlDeviceMqtt };

@@ -29,7 +29,21 @@ let publisherControlDevice = (device, topic) => {
     }
 }
 
+let publisherDeleteDevice = (device, topic) => {
+    try {
+        const data = {
+            action: "delete",
+            device_owner: device.device_owner,
+            home_id: device.home_id,
+        };
+        mqtt.deleteDeviceMqtt(data, topic);
+    } catch (error) {
+        return error;
+    }
+}
+
 module.exports = {
     publisherCreateDevice,
-    publisherControlDevice
+    publisherControlDevice,
+    publisherDeleteDevice
 }
